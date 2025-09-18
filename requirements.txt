@@ -1,3 +1,4 @@
 streamlit>=1.25
 pandas>=1.5
 geopandas>=0.13
+psycopg2>=2.9

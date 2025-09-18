@@ -1,9 +1,20 @@
-import os, psycopg2, pandas as pd
-OUT=os.getenv("OUT_DIR","data/processed"); os.makedirs(OUT, exist_ok=True)
-conn=psycopg2.connect(
-    host=os.getenv("PGHOST","localhost"), dbname=os.getenv("PGDB","utility"),
-    user=os.getenv("PGUSER","postgres"), password=os.getenv("PGPASSWORD","postgres"), port=int(os.getenv("PGPORT",5432))
-)
-df=pd.read_sql("select * from mart.poles_fire_risk", conn)
-df.to_csv(f"{OUT}/poles_fire_risk.csv", index=False)
-print(f"Wrote {len(df)} rows")
+"""Export joined mart tables to CSV."""
+from pathlib import Path
+import pandas as pd
+from config import get_connection, load_settings
+
+def export_table(query: str, out_path: Path) -> int:
+    with get_connection() as conn:
+        df = pd.read_sql(query, conn)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(out_path, index=False)
+    return len(df)
+
+def main():
+    settings = load_settings()
+    out_dir = Path(settings.export_dir)
+    rows = export_table("select * from mart.poles_fire_risk", out_dir / "poles_fire_risk.csv")
+    print(f"Exported {rows} rows to {out_dir / 'poles_fire_risk.csv'}")
+
+if __name__ == "__main__":  # pragma: no cover
+    main()

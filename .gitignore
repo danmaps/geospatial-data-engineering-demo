@@ -12,3 +12,12 @@ __pycache__/
 .vscode/
 .idea/
 *.iml
+# Streamlit cache
+.streamlit/
+
+# Data outputs (retain placeholder if needed)
+data/processed/
+!data/processed/.gitkeep
+
+# Packaging artifacts
+*.egg-info/

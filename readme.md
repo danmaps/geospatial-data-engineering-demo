@@ -112,6 +112,32 @@ You can now run Python scripts and the Streamlit app in this isolated environmen
 
 ## ▶️ Running the Streamlit App
 
+## 🔧 Environment Configuration
+
+The project reads database settings from environment variables (see `.env.example`). To use them:
+
+1. Copy the example file:
+   ```cmd
+   copy .env.example .env
+   ```
+2. (Optional) Edit credentials in `.env`.
+3. Ensure `python-dotenv` is installed (add to dev deps if needed).
+4. Run any ETL script; it will automatically load `.env` and connect.
+
+Key variables:
+```
+DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD, EXPORT_DIR
+```
+
+Example running an ingestion:
+```cmd
+python etl\ingest_assets.py
+python etl\ingest_risk.py
+python etl\publish_exports.py
+```
+
+The export script writes CSVs to the `EXPORT_DIR` (default `data/processed`).
+
 To launch the dashboard:
 
 1. Make sure you have Python 3.8+ and Streamlit installed:
