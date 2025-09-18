@@ -1,7 +1,6 @@
-```markdown
 # Geospatial Data Engineering Demo
 
-An end-to-end **cloud + SQL pipeline** that ingests utility asset data and external fire-risk layers, transforms them with **PostgreSQL/PostGIS**, orchestrates workflows with a scheduler, and serves outputs to a lightweight **Streamlit dashboard**.  
+An end-to-end **cloud + SQL pipeline** that ingests utility asset data and external fire-risk layers, transforms them with **PostgreSQL/PostGIS**, orchestrates workflows with a scheduler, and serves outputs to a lightweight **Streamlit dashboard**.
 
 This project demonstrates how geospatial automation skills can be applied in a **data engineering context**: ETL pipelines, SQL transformations, cloud orchestration, and reproducible analytics.
 
@@ -9,51 +8,54 @@ This project demonstrates how geospatial automation skills can be applied in a *
 
 ## 📐 Architecture
 
-```
-
-\[Utility Assets]     \[External Fire Risk Data]
-\|                         |
-v                         v
+```text
+[Utility Assets]     [External Fire Risk Data]
+   |                         |
+   v                         v
 Blob/S3 (raw landing zone, CSV/GeoJSON)
-|
-v
+   |
+   v
 Postgres + PostGIS  <- SQL transforms + QA
-|
-v
+   |
+   v
 Gold tables & materialized views
-|
-┌───────────────┬─────────────────────┐
-\| Streamlit app | Exports (CSV/GeoJSON)|
-└───────────────┴─────────────────────┘
-
-````
+   |
+ ┌───────────────┬──────────────────────┐
+ | Streamlit app | Exports (CSV/GeoJSON)|
+ └───────────────┴──────────────────────┘
+ 
+```
 
 ---
 
 ## 🗂 Tech Stack
 
-- **Database**: PostgreSQL 15 + PostGIS 3  
-- **Orchestration**: Azure Data Factory (or Apache Airflow locally)  
-- **Storage**: Azure Blob Storage / AWS S3 (raw + processed)  
-- **Compute**: Databricks Community Edition (optional scale-out)  
-- **App**: Streamlit for dashboard  
-- **Languages**: Python, SQL  
+- **Database**: PostgreSQL 15 + PostGIS 3
+- **Orchestration**: Azure Data Factory (or Apache Airflow locally)
+- **Storage**: Azure Blob Storage / AWS S3 (raw + processed)
+- **Compute**: Databricks Community Edition (optional scale-out)
+- **App**: Streamlit for dashboard
+- **Languages**: Python, SQL
 - **Infra**: Docker for local Postgres; Terraform templates (optional)  
 
 ---
 
 ## 🚀 Quick Start (local demo)
 
+
 1. **Bring up Postgres with PostGIS**
+
    ```bash
    docker compose up -d
-````
+   ```
+
 
 2. **Initialize database**
 
    ```bash
    psql -h localhost -U postgres -f sql/00_init_postgis.sql
    ```
+
 
 3. **Load sample data**
 
@@ -62,12 +64,14 @@ Gold tables & materialized views
    python etl/ingest_risk.py
    ```
 
+
 4. **Run transforms**
 
    ```bash
    psql -h localhost -U postgres -d utility -f sql/10_transform_assets.sql
    psql -h localhost -U postgres -d utility -f sql/20_join_assets_risk.sql
    ```
+
 
 5. **Launch dashboard**
 
@@ -135,10 +139,10 @@ join risk.fire_zones r
 
 ## ✅ Data Quality & Observability
 
-* Row counts before/after each stage
-* `NOT NULL` + geometry checks in SQL
-* Run log table (`ops.run_log`) with pipeline, step, status, row counts, duration
-* Unit tests for ETL scripts and SQL checks
+- Row counts before/after each stage
+- `NOT NULL` + geometry checks in SQL
+- Run log table (`ops.run_log`) with pipeline, step, status, row counts, duration
+- Unit tests for ETL scripts and SQL checks
 
 ---
 
@@ -146,27 +150,27 @@ join risk.fire_zones r
 
 The Streamlit app provides:
 
-* Risk summary by zone (count, average score)
-* Sample of joined assets + zones
-* Simple data export to CSV/GeoJSON
+- Risk summary by zone (count, average score)
+- Sample of joined assets + zones
+- Simple data export to CSV/GeoJSON
 
 ---
 
 ## 📈 Results
 
-* Automated daily refresh possible with ADF/Airflow
-* Materialized views for fast queries
-* Spatial indexes (GIST) accelerate joins
-* Exportable datasets for downstream BI tools (Power BI, Tableau, etc.)
+- Automated daily refresh possible with ADF/Airflow
+- Materialized views for fast queries
+- Spatial indexes (GIST) accelerate joins
+- Exportable datasets for downstream BI tools (Power BI, Tableau, etc.)
 
 ---
 
 ## 🔮 Roadmap
 
-* Incremental data loads by date
-* API endpoint to serve gold tables
-* Add Spark job for large-area joins
-* CI/CD workflow for ETL tests
+- Incremental data loads by date
+- API endpoint to serve gold tables
+- Add Spark job for large-area joins
+- CI/CD workflow for ETL tests
 
 ---
 
@@ -174,20 +178,3 @@ The Streamlit app provides:
 
 MIT License. Public datasets used for demo purposes only.
 
----
-
-## 💡 How This Fits My Portfolio
-
-* Shows **SQL + pipeline engineering** beyond GIS
-* Demonstrates **cloud orchestration** with Azure/AWS
-* Integrates **Python automation + geospatial domain expertise**
-* Directly relevant to **Senior Data Engineer roles** at Microsoft, NVIDIA, Canonical, Veeva, etc.
-
-```
-
----
-
-This is ready to paste as `README.md` in the `geospatial-data-engineering-demo` repo.  
-
-Do you want me to also make you a **short GitHub repo description + topic tags** (the one-line blurb and keywords that show in search)?
-```
