@@ -23,7 +23,7 @@ Gold tables & materialized views
  ┌───────────────┬──────────────────────┐
  | Streamlit app | Exports (CSV/GeoJSON)|
  └───────────────┴──────────────────────┘
- 
+
 ```
 
 ---
@@ -73,11 +73,64 @@ Gold tables & materialized views
    ```
 
 
+
 5. **Launch dashboard**
 
    ```bash
    streamlit run app/dashboard.py
    ```
+
+---
+
+
+## 🐍 Setting Up a Python Virtual Environment
+
+It is recommended to use a virtual environment for Python dependencies:
+
+1. Open a terminal in the project root.
+2. Create a new virtual environment:
+
+   ```cmd
+   python -m venv .venv
+   ```
+
+3. Activate the environment (Windows cmd):
+
+   ```cmd
+   .venv\Scripts\activate
+   ```
+
+4. Install dependencies (e.g., Streamlit):
+
+   ```cmd
+   pip install streamlit
+   ```
+
+You can now run Python scripts and the Streamlit app in this isolated environment.
+
+---
+
+## ▶️ Running the Streamlit App
+
+To launch the dashboard:
+
+1. Make sure you have Python 3.8+ and Streamlit installed:
+
+   ```bash
+   pip install streamlit
+   ```
+
+2. Run the app from the project root:
+
+   ```bash
+   streamlit run app/dashboard.py
+   ```
+
+3. The dashboard will open in your browser at [http://localhost:8501](http://localhost:8501).
+
+**Troubleshooting:**
+- If you see a `ModuleNotFoundError`, ensure you are in the correct virtual environment and dependencies are installed.
+- If the app does not open, check for errors in the terminal and verify the file path.
 
 ---
 
