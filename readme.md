@@ -24,7 +24,7 @@ Gold tables & materialized views
  | Streamlit app | Exports (CSV/GeoJSON)|
  └───────────────┴──────────────────────┘
 
-```
+```text
 
 ---
 
@@ -50,14 +50,14 @@ Gold tables & materialized views
    ```
 
 
-2. **Initialize database**
+1. **Initialize database**
 
    ```bash
    psql -h localhost -U postgres -f sql/00_init_postgis.sql
    ```
 
 
-3. **Load sample data**
+1. **Load sample data**
 
    ```bash
    python etl/ingest_assets.py
@@ -65,7 +65,7 @@ Gold tables & materialized views
    ```
 
 
-4. **Run transforms**
+1. **Run transforms**
 
    ```bash
    psql -h localhost -U postgres -d utility -f sql/10_transform_assets.sql
@@ -74,7 +74,7 @@ Gold tables & materialized views
 
 
 
-5. **Launch dashboard**
+1. **Launch dashboard**
 
    ```bash
    streamlit run app/dashboard.py
@@ -117,19 +117,23 @@ You can now run Python scripts and the Streamlit app in this isolated environmen
 The project reads database settings from environment variables (see `.env.example`). To use them:
 
 1. Copy the example file:
+
    ```cmd
    copy .env.example .env
    ```
+
 2. (Optional) Edit credentials in `.env`.
 3. Ensure `python-dotenv` is installed (add to dev deps if needed).
 4. Run any ETL script; it will automatically load `.env` and connect.
 
 Key variables:
-```
+
+```text
 DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD, EXPORT_DIR
 ```
 
 Example running an ingestion:
+
 ```cmd
 python etl\ingest_assets.py
 python etl\ingest_risk.py
@@ -155,6 +159,7 @@ To launch the dashboard:
 3. The dashboard will open in your browser at [http://localhost:8501](http://localhost:8501).
 
 **Troubleshooting:**
+
 - If you see a `ModuleNotFoundError`, ensure you are in the correct virtual environment and dependencies are installed.
 - If the app does not open, check for errors in the terminal and verify the file path.
 
