@@ -1,0 +1,14 @@
+{
+  "name": "UtilityRiskPipeline",
+  "properties": {
+    "activities": [
+      {"name": "InitPostGIS","type": "Script","typeProperties":{"scriptPath":"sql/00_init_postgis.sql","linkedServiceName":{"referenceName":"PostgreSqlLS","type":"LinkedServiceReference"}}},
+      {"name": "IngestAssets","type":"ExecuteDataFlow","typeProperties":{"dataflow":{"referenceName":"IngestAssetsDF","type":"DataFlowReference"}}},
+      {"name": "IngestRisk","type":"ExecuteDataFlow","typeProperties":{"dataflow":{"referenceName":"IngestRiskDF","type":"DataFlowReference"}}},
+      {"name": "TransformAssets","type":"Script","typeProperties":{"scriptPath":"sql/10_transform_assets.sql","linkedServiceName":{"referenceName":"PostgreSqlLS","type":"LinkedServiceReference"}}},
+      {"name": "JoinAssetsRisk","type":"Script","typeProperties":{"scriptPath":"sql/20_join_assets_risk.sql","linkedServiceName":{"referenceName":"PostgreSqlLS","type":"LinkedServiceReference"}}},
+      {"name": "PublishExports","type":"Custom","typeProperties":{"command":"python etl/publish_exports.py"}}
+    ],
+    "policy": {"retry": 1, "timeout": "01:00:00"}
+  }
+}

@@ -1,0 +1,2 @@
+-- SQL tests for data quality
+-- Example: SELECT COUNT(*) FROM core.poles WHERE geom IS NULL;
